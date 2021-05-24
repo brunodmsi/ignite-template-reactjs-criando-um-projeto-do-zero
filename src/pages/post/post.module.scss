@@ -45,3 +45,15 @@
     margin-left: 2rem;
   }
 }
+
+.postContent {
+  line-height: 1.5rem;
+
+  > div {
+    margin: 2rem 0;
+  }
+
+  h3 {
+    font-size: 1.5rem;
+  }
+}
