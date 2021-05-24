@@ -37,7 +37,7 @@ export default function Home({ postsPagination }: HomeProps): JSX.Element {
 
       <Header />
 
-      <main className={styles.container}>
+      <main className={`${styles.container} ${commonStyles.container}`}>
         <a className={styles.post}>
           <article>
             <h1>Como utilizar hooks</h1>
