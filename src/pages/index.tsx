@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -33,6 +34,36 @@ interface HomeProps {
 }
 
 export default function Home({ postsPagination }: HomeProps): JSX.Element {
+  const [posts, setPosts] = useState(postsPagination.results);
+  const [nextPage, setNextPage] = useState(postsPagination.next_page);
+
+  function handleMorePosts(): void {
+    fetch(nextPage)
+      .then(response => response.json())
+      .then(jsonData => {
+        const newPosts = jsonData.results.map(post => {
+          return {
+            uid: post.uid,
+            data: {
+              title: post.data.title,
+              subtitle: post.data.subtitle,
+              author: post.data.author,
+            },
+            first_publication_date: format(
+              new Date(post.first_publication_date),
+              'dd MMM yyyy',
+              {
+                locale: ptBR,
+              }
+            ),
+          };
+        });
+
+        setPosts(oldPosts => [...oldPosts, ...newPosts]);
+        setNextPage(jsonData.next_page);
+      });
+  }
+
   return (
     <>
       <Head>
@@ -42,7 +73,7 @@ export default function Home({ postsPagination }: HomeProps): JSX.Element {
       <Header />
 
       <main className={`${styles.container} ${commonStyles.container}`}>
-        {postsPagination.results.map(post => (
+        {posts.map(post => (
           <Link key={post.uid} href={`/post/${post.uid}`}>
             <a className={styles.post}>
               <article>
@@ -68,7 +99,7 @@ export default function Home({ postsPagination }: HomeProps): JSX.Element {
           <button
             type="button"
             className={styles.loadMorePostsButton}
-            onClick={() => console.log()}
+            onClick={handleMorePosts}
           >
             Carregar mais posts
           </button>
