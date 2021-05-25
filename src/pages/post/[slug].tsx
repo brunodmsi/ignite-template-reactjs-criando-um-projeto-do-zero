@@ -8,8 +8,10 @@ import { format } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
 import { useRouter } from 'next/router';
 import { RichText } from 'prismic-dom';
+
 import { getPrismicClient } from '../../services/prismic';
 import Header from '../../components/Header';
+import Comments from '../../components/Comments';
 
 import commonStyles from '../../styles/common.module.scss';
 import styles from './post.module.scss';
@@ -113,6 +115,8 @@ export default function Post({ post }: PostProps): JSX.Element {
             </div>
           ))}
         </article>
+
+        <Comments />
 
         <div className={styles.navigationBetweenPosts}>
           {post.prev_post?.uid !== undefined ? (
