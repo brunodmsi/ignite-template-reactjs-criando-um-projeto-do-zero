@@ -28,21 +28,29 @@
 }
 
 .postInfo {
-  display: flex;
-  flex-direction: row;
-  color: var(--gray-300);
-
-  time, span {
+  .mainPostInfo {
     display: flex;
-    align-items: center;
+    flex-direction: row;
+    color: var(--gray-300);
+    margin-bottom: 0.5rem;
 
-    svg {
-      margin-right: 0.5rem;
+    time, span {
+      display: flex;
+      align-items: center;
+
+      svg {
+        margin-right: 0.5rem;
+      }
+    }
+
+    span {
+      margin-left: 2rem;
     }
   }
 
-  span {
-    margin-left: 2rem;
+  .lastEditedInfo {
+    color: var(--gray-300);
+    font-size: 0.9rem;
   }
 }
 

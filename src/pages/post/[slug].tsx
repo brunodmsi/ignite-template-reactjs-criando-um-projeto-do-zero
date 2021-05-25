@@ -15,6 +15,7 @@ import styles from './post.module.scss';
 
 interface Post {
   first_publication_date: string | null;
+  last_publication_date: string | null;
   data: {
     title: string;
     banner: {
@@ -47,7 +48,7 @@ export default function Post({ post }: PostProps): JSX.Element {
     const min = Math.ceil(total.length / 200);
     return acc + min;
   }, 0);
-
+  console.log(post);
   return (
     <>
       <Head>
@@ -61,19 +62,36 @@ export default function Post({ post }: PostProps): JSX.Element {
       <main className={`${styles.container} ${commonStyles.container}`}>
         <h1>{post.data.title}</h1>
         <div className={styles.postInfo}>
-          <time>
-            <FiCalendar />
-            {format(new Date(post.first_publication_date), 'dd MMM yyyy', {
-              locale: ptBR,
-            })}
-          </time>
-          <span>
-            <FiUser />
-            {post.data.author}
-          </span>
-          <span>
-            <FiClock /> {totalTime} min
-          </span>
+          <div className={styles.mainPostInfo}>
+            <time>
+              <FiCalendar />
+              {format(new Date(post.first_publication_date), 'dd MMM yyyy', {
+                locale: ptBR,
+              })}
+            </time>
+            <span>
+              <FiUser />
+              {post.data.author}
+            </span>
+            <span>
+              <FiClock /> {totalTime} min
+            </span>
+          </div>
+
+          {post.first_publication_date !== post.last_publication_date && (
+            <span className={styles.lastEditedInfo}>
+              <i>
+                * editado em{' '}
+                {format(
+                  new Date(post.last_publication_date),
+                  "dd MMM yyyy', às ' HH:mm",
+                  {
+                    locale: ptBR,
+                  }
+                )}
+              </i>
+            </span>
+          )}
         </div>
 
         <article className={styles.postContent}>
@@ -115,6 +133,7 @@ export const getStaticProps: GetStaticProps = async context => {
   const post = {
     uid: response.uid,
     first_publication_date: response.first_publication_date,
+    last_publication_date: response.last_publication_date,
     data: {
       title: response.data.title,
       subtitle: response.data.subtitle,
