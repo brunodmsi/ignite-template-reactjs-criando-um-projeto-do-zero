@@ -116,8 +116,6 @@ export default function Post({ post }: PostProps): JSX.Element {
           ))}
         </article>
 
-        <Comments />
-
         <div className={styles.navigationBetweenPosts}>
           {post.prev_post?.uid !== undefined ? (
             <Link href={`/post/${post.prev_post?.uid}`}>
@@ -138,6 +136,8 @@ export default function Post({ post }: PostProps): JSX.Element {
             <div />
           )}
         </div>
+
+        <Comments />
       </main>
     </>
   );
