@@ -65,3 +65,24 @@
     font-size: 1.5rem;
   }
 }
+
+.navigationBetweenPosts {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  color: var(--gray-100);
+  border-top: 1px solid var(--gray-600);
+  padding: 2rem 0;
+
+  a {
+    display: flex;
+    flex-direction: column;
+    font-size: 1.05rem;
+
+    span {
+      justify-content: flex-end;
+      margin-top: 0.5rem;
+      color: var(--pink-400);
+      font-size: 1rem;
+    }
+  }
+}
